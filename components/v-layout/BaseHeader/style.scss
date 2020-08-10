@@ -1,0 +1,34 @@
+.ant-menu {
+  background: transparent;
+  border: none;
+}
+.ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-item > a:hover {
+  border: none;
+  background-color: #bfffff;
+  border-radius: 15px;
+  color: black;
+}
+
+.ant-menu-horizontal > .ant-menu-item-selected > a {
+  color: black;
+}
+
+.ant-menu-horizontal > .ant-menu-submenu {
+  border: none;
+}
+
+.ant-menu-submenu {
+  transition: none;
+}
+
+.ant-menu-item {
+  transition: none;
+  margin-left: 10px;
+  height: 47px;
+  width: 100px;
+  text-align: center;
+}
+
+
+
+
