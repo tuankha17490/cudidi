@@ -20,6 +20,7 @@
     "@tinymce/tinymce-vue": "^3.2.2",
     "ant-design-vue": "^1.1.10",
     "cookie-universal-nuxt": "^2.0.18",
+    "firebase": "^7.17.2",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "vee-validate": "^3.2.1",

@@ -63,6 +63,10 @@
                 <a-icon type="phone" />
                 {{ profile.PhoneNumber }}
               </p>
+               <p  v-if="profile.linkFacebook">
+                <a-icon type="facebook" />
+                <a style="color:white" :href="profile.linkFacebook" target="_blank">Visit profile of you on facebook</a>
+              </p>
             </a-card>
           </div>
         </div>
