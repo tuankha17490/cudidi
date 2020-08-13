@@ -155,7 +155,7 @@ export default {
   },
 
   async created() {
-    this.listFeaturedLocation.forEach(async (item, index) => {
+    this.listFeaturedLocation.forEach(async (item) => {
       const titleLocation = await axios.get(
         `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&list=search&srsearch=${item.Location}`
       );

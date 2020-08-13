@@ -63,6 +63,10 @@
                 <a-icon type="phone" />
                 {{ profile.PhoneNumber }}
               </p>
+              <p  v-if="profile.linkFacebook">
+                <a-icon type="facebook" />
+                <a style="color:white" :href="profile.linkFacebook" target="_blank">Visit profile of you on facebook</a>
+              </p>
             </a-card>
           </div>
         </div>
@@ -94,10 +98,7 @@
                   <h6 class="text-white">{{ profile.FullName }}</h6>
                   <p class="mb-0">{{ moment(item.created_at).fromNow() }}</p>
                 </span>
-                <div
-                  class="ml-auto text-right"
-                  v-if="$store.state.user.authUser && profile.ID == $store.state.user.authUser.ID"
-                >
+                <div class="ml-auto text-right" v-if="$store.state.user.authUser && profile.ID == $store.state.user.authUser.ID">
                   <a-popover placement="right">
                     <template slot="content">
                       <a-button ghost type="link" class="text-dark mb-2">

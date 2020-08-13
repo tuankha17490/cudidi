@@ -39,6 +39,7 @@
         <span :style="{ display: 'inline-block', width: '24px', textAlign: 'center' }"></span>
         <a-form-item :style="{ display: 'inline-block', width: 'calc(50% - 12px)' }">
           <a-input
+            :disabled="infoUser.Username == undefined"
             size="large"
             style="width: 100%"
             v-decorator="['Username', { initialValue: infoUser.Username, rules: [{ required: true, whitespace: true, message: 'Please input your Username!' }] }]"
@@ -134,11 +135,11 @@ export default {
   methods: {
     allowEditPassword() {
       this.disabledInputPassword = !this.disabledInputPassword;
-    },
+    }
   },
   watch: {
     infoUser() {
-      this.form.resetFields()
+      this.form.resetFields();
     }
   }
 };

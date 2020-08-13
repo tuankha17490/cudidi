@@ -39,6 +39,7 @@ export default {
   */
   plugins: [
     '@/plugins/antd-ui',
+    '@/plugins/firebase',
     { src: '~/plugins/infiniteloading', ssr: false }
   ],
   /*
@@ -117,7 +118,7 @@ export default {
           access_token_endpoint: undefined,
           response_type: 'token',
           token_type: 'Bearer',
-          redirect_uri: 'http://localhost:3000/callback',
+          redirect_uri: 'http://localhost:3000',
           token_key: 'access_token',
           state: 'UNIQUE_AND_NON_GUESSABLE'
         },

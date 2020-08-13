@@ -8,7 +8,7 @@
         <a class="text-secondary" @click="loginGoogle">
           <img src="@/static/icons/icon-google.svg" class="mr-2" />Login with Google
         </a>
-        <a class="text-secondary float-right">
+        <a class="text-secondary float-right" @click="loginFacebook">
           <img src="@/static/icons/icon-facebook.svg" class="mr-2" />Login with Facebook
         </a>
       </div>
@@ -52,6 +52,8 @@
 }
 </style>
 <script>
+import firebase from "firebase";
+import moment from "moment"
 export default {
   layout: "authentication",
   middleware: "notAuthenticated",
@@ -69,8 +71,8 @@ export default {
             const { data } = await this.$axios.post("/login", values);
             if (data.status == 200) {
               this.$cookies.set("token", data.token);
-              this.$store.dispatch('update')
-              this.$router.push("/")
+              this.$store.dispatch("update");
+              this.$router.push("/");
             } else {
               this.form.setFields({
                 Password: {
@@ -89,7 +91,73 @@ export default {
       });
     },
     async loginGoogle() {
-      this.$auth.loginWith('google');
+      this.provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(this.provider)
+        .then(async result => {
+          const user = result.additionalUserInfo.profile;
+          let values = {};
+          values.Email = user.email;
+          values.FullName = user.name;
+          values.Avatar = user.picture;
+          const { data } = await this.$axios.post("/social/login", values);
+          console.log("data ------>", data);
+          if (data.status == 200) {
+            this.$cookies.set("token", data.token);
+            this.$store.dispatch("update");
+            this.$router.push("/");
+          } else {
+            this.$message.error(data.message, 8);
+          }
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    async loginFacebook() {
+      var provider = new firebase.auth.FacebookAuthProvider();
+      provider.addScope("user_birthday,user_link");
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(async result => {
+          // The signed-in user info.
+          const user = result.additionalUserInfo.profile;
+          let values = {};
+          values.Email = user.email;
+          values.FullName = user.name;
+          values.Avatar = user.picture.data.url;
+          values.BirthDay = moment(user.birthday).format("YYYY-MM-DD")
+          values.linkFacebook = user.link;
+          const { data } = await this.$axios.post("/social/login", values);
+          if (data.status == 200) {
+            this.$cookies.set("token", data.token);
+            this.$store.dispatch("update");
+            this.$router.push("/");
+          } else {
+            this.$message.error(data.message, 8);
+          }
+        })
+        .catch(function(error) {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.email;
+          const credential = error.credential;
+          if (errorCode) {
+            console.log(errorCode);
+          }
+          if (errorMessage) {
+            console.log(errorMessage);
+          }
+          if (email) {
+            console.log(email);
+          }
+          if (credential) {
+            console.log(credential);
+          }
+        });
     }
   }
 };
