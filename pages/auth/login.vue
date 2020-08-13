@@ -102,7 +102,6 @@ export default {
           values.FullName = user.name;
           values.Avatar = user.picture;
           const { data } = await this.$axios.post("/social/login", values);
-          console.log("data ------>", data);
           if (data.status == 200) {
             this.$cookies.set("token", data.token);
             this.$store.dispatch("update");
