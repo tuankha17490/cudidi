@@ -9,6 +9,11 @@
   color: black;
 }
 
+.container-header >>> .ant-menu-submenu-title .anticon {
+  margin-right: 0;
+  font-size: 20px;
+}
+
 .ant-menu-horizontal > .ant-menu-item-selected > a {
   color: black;
 }

@@ -73,7 +73,7 @@
         </a-input>
       </a-form-item>
 
-      <a-form-item v-if="!infoUser.PageAdmin">
+      <a-form-item v-if="(!infoUser.PageAdmin) && (infoUser.Username)">
         <a-input
           size="large"
           v-decorator="['passwordConfirm', { rules: [{ required: true, message: 'Please input your Password!' }, { min: 6, max: 16, message: 'Password between 6 to 16 characters' }] }]"
@@ -84,7 +84,7 @@
         </a-input>
       </a-form-item>
 
-      <a-form-item v-else>
+      <a-form-item v-if="infoUser.PageAdmin">
         <a-form-item>
           <a-input
             size="large"

@@ -52,7 +52,7 @@ export default {
               BirthDay: moment(values.BirthDay).format("YYYY-MM-DD")
             };
             const { data } = await this.$axios.put(
-              "http://localhost:3001/user/update-information",
+              "user/update-information",
               values,
               {
                 headers: {
