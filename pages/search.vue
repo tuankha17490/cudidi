@@ -156,6 +156,7 @@ export default {
               }
             );
           }
+          console.log(response.data)
           if (response.data.status == 200 && response.data.data.length > 0) {
             response.data.data.forEach(item => {
               this.listArticles.push(item);

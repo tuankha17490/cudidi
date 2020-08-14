@@ -128,8 +128,6 @@
                   <p>
                     {{item.ArticleAmount}} Articles
                     <a-icon type="edit" />
-                    , {{item.Likes}} Likes
-                    <a-icon type="heart" />
                   </p>
                   <p class="text-justify mx-5">{{item.Introduce}}</p>
                 </div>
@@ -154,30 +152,20 @@ export default {
     return {};
   },
 
-  async created() {
-    this.listFeaturedLocation.forEach(async (item) => {
-      const titleLocation = await axios.get(
-        `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&list=search&srsearch=${item.Location}`
-      );
-      console.log(titleLocation)
-      const descriptionLocation = await axios.get(
-        `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&titles=${titleLocation.data.query.search[0].title}&formatversion=2&exsentences=10&exlimit=1&explaintext=1`
-      );
-      console.log(descriptionLocation.data)
-    });
-  },
-
   async asyncData({ $axios }) {
+    let listFeaturedLocation = {}
     const { data } = await $axios.get("/article/home");
     if (data.status == 200) {
-      // listFeaturedLocation = data.data.popularLocation
-      // data.data.popularLocation.forEach(async (item, index) => {
-      //   const titleLocation = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${item.Location}`)
-      //   const descriptionLocation = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&titles=${titleLocation.data.query.search[0].title}&formatversion=2&exsentences=10&exlimit=1&explaintext=1`)
-      //   listFeaturedLocation[index].title = titleLocation;
-      //   listFeaturedLocation[index].description = descriptionLocation;
-      // })
-
+      listFeaturedLocation = data.data.popularLocation
+      for(let i = 0; i < listFeaturedLocation.length; i++) {
+      let titleLocation = await axios.get(
+        `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&list=search&srsearch=${listFeaturedLocation[i].Location}`
+      );
+      let descriptionLocation = await axios.get(
+        `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&titles=${titleLocation.data.query.search[0].title}&formatversion=2&exsentences=5&exlimit=1&explaintext=1`
+      );
+      listFeaturedLocation[i].Introduce = descriptionLocation.data.query.pages[0].extract
+    }
       return {
         listFeaturedArticles: data.data.popularArticles,
         listLatestArticles: data.data.latestArticles,
