@@ -13,8 +13,12 @@
 
           <a-avatar size="large" :src="$store.state.user.authUser.Avatar" :icon="$store.state.user.authUser.Avatar ? '' : 'user'"></a-avatar>
         </span>
-        <a-menu-item key="profile"><nuxt-link :to="`/user/${$store.state.user.authUser.Slug}`">Profile</nuxt-link></a-menu-item>
-        <a-menu-item key="account"><nuxt-link to="/user/editprofile">Account</nuxt-link></a-menu-item>
+        <a-menu-item key="profile">
+          <nuxt-link :to="`/user/${$store.state.user.authUser.Slug}`">Profile</nuxt-link>
+        </a-menu-item>
+        <a-menu-item key="account">
+          <nuxt-link to="/user/editprofile">Account</nuxt-link>
+        </a-menu-item>
         <a-menu-item key="logout" @click="logout">Logout</a-menu-item>
       </a-sub-menu>
     </a-menu>
@@ -26,6 +30,7 @@
 </style>
 
 <script>
+import firebase from "firebase"
 export default {
   data() {
     return {
@@ -36,7 +41,17 @@ export default {
     async logout() {
       await this.$store.dispatch("logout");
       this.$cookies.remove("token");
-      this.$router.push("/auth/login")
+      this.$router.push("/auth/login");
+      firebase
+        .auth()
+        .signOut()
+        .then(function() {
+          // Sign-out successful.
+        })
+        .catch(function(error) {
+          // An error happened.
+          console.log(error);
+        });
     }
   }
 };
