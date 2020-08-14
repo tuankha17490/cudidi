@@ -13,8 +13,8 @@
       >
         <slot name="aboveSearchBar"></slot>
         <a-input-group compact v-if="searchBar" class="mt-5">
-          <a-select default-value="article" :style="{width: '17%'}">
-            <a-select-option value="article">Articles</a-select-option>
+          <a-select default-value="default" :style="{width: '17%'}">
+            <a-select-option value="default">Articles or location</a-select-option>
           </a-select>
           <a-input-search placeholder="input search text" v-model="textSearch" :style="{width: '57%'}" @search="onSearch" />
         </a-input-group>

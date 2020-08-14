@@ -25,7 +25,6 @@
           style="width: calc(100% - 64px);"
           :style="{color: colorText}"
           :author="item.author"
-          :content="item.content"
           :datetime="moment(item.datetime).fromNow()"
         >
           <a-avatar
@@ -33,6 +32,15 @@
             :src="`${item.avatar ? item.avatar : ''}`"
             :icon="`${item.avatar ? '' : 'user'}`"
           />
+          <div slot="content">
+            <span v-if="!visibleEditComment.includes(item.idComment)">{{ item.content }}</span>
+            <a-input
+              class="rounded-pill"
+              :value="item.content"
+              @pressEnter="(e)=>editComment(e, indexComment, item.idComment)"
+              v-else
+            ></a-input>
+          </div>
           <div
             class="mb-2 mt-0"
             :style="{color: colorText}"
@@ -101,9 +109,16 @@
             <a-button
               ghost
               type="link"
-              class="text-dark"
+              class="text-dark mb-2"
               @click="deleteComment(item.idComment)"
             >Delete</a-button>
+            <br>
+            <a-button
+              ghost
+              type="link"
+              class="text-dark"
+              @click="visibleEditComment.push(item.idComment)"
+            >Edit</a-button>
           </template>
           <a-button
             ghost
@@ -147,7 +162,8 @@ export default {
       loadingMoreComments: false,
       showLoadingMoreComments: true,
       loadingMoreReplies: true,
-      showLoadingMoreReplies: true
+      showLoadingMoreReplies: true,
+      visibleEditComment: []
     };
   },
   methods: {
@@ -158,22 +174,20 @@ export default {
           onOk: () => {
             this.$router.push("/auth/login");
           },
-          onCancel: () => {
-
-          }
+          onCancel: () => {}
         });
-        return false
+        return false;
       }
-      return true
+      return true;
     },
 
     async submitComment() {
       if (!this.value) {
         return;
       }
-      if(!this.checkLogged()) {
+      if (!this.checkLogged()) {
         this.value = "";
-        return
+        return;
       }
       const values = {
         Article_Id: this.IdArticle,
@@ -236,9 +250,9 @@ export default {
       if (!content) {
         return;
       }
-      if(!this.checkLogged()) {
+      if (!this.checkLogged()) {
         this.comments[indexComment].reply = "";
-        return
+        return;
       }
 
       const values = {
@@ -310,6 +324,25 @@ export default {
         this.comments = this.comments.filter(
           item => item.idComment !== idComment
         );
+      }
+    },
+    async editComment(e, indexComment, idComment) {
+      if (!e.target.value) {
+        this.visibleEditComment.splice(this.visibleEditComment.indexOf(idComment), 1)
+        return;
+      }
+      const { data } = await this.$axios.put(
+        `/comment/${idComment}`,
+        { Content: e.target.value },
+        {
+          headers: {
+            authorization: "Bearer " + this.$cookies.get("token")
+          }
+        }
+      );
+      if(data.status == 201) {
+        this.comments[indexComment].content = e.target.value
+        this.visibleEditComment.splice(this.visibleEditComment.indexOf(idComment), 1)
       }
     }
   },

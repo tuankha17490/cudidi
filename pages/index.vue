@@ -52,7 +52,7 @@
           </a-divider>
         </div>
         <div class="col-11 container-slide-latest-articles">
-          <a-carousel :dots="false" arrows>
+          <a-carousel :dots="false" autoplay arrows>
             <div slot="prevArrow" class="custom-slick-arrow" style="left: 20px;zIndex: 1">
               <a-icon type="left-circle" />
             </div>
@@ -121,10 +121,10 @@
             <div v-for="item in listFeaturedLocation" :key="item.Location">
               <div class="row m-0 align-items-center">
                 <div class="img-location col-6" style="height: 400px;">
-                  <img :src="item.Image" class="w-100 h-100 border-radius--15 p-0" alt />
+                  <nuxt-link :to="`/search/?data=${item.Location}`"><img :src="item.Image" class="w-100 h-100 border-radius--15 p-0" alt /></nuxt-link>
                 </div>
                 <div class="col-6">
-                  <h2 class="mb-2">{{item.Location}}</h2>
+                  <nuxt-link :to="`/search/?data=${item.Location}`"><h2 class="mb-2">{{item.Location}}</h2></nuxt-link>
                   <p>
                     {{item.ArticleAmount}} Articles
                     <a-icon type="edit" />
@@ -149,7 +149,9 @@ export default {
     HeaderPage
   },
   data() {
-    return {};
+    return {
+      listFeaturedLocation: {}
+    };
   },
 
   async asyncData({ $axios }) {
@@ -169,7 +171,7 @@ export default {
       return {
         listFeaturedArticles: data.data.popularArticles,
         listLatestArticles: data.data.latestArticles,
-        listFeaturedLocation: data.data.popularLocation
+        listFeaturedLocation
       };
     }
   }
