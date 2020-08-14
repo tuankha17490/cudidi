@@ -101,7 +101,7 @@ export default {
           values.Email = user.email;
           values.FullName = user.name;
           values.Avatar = user.picture;
-          const { data } = await this.$axios.post("/social/login", values);
+          const { data } = await this.$axios.post("http://localhost:3001/social/login", values);
           if (data.status == 200) {
             this.$cookies.set("token", data.token);
             this.$store.dispatch("update");
@@ -122,6 +122,7 @@ export default {
         .signInWithPopup(provider)
         .then(async result => {
           // The signed-in user info.
+          console.log('test ---->', result.additionalUserInfo);
           const user = result.additionalUserInfo.profile;
           let values = {};
           values.Email = user.email;
