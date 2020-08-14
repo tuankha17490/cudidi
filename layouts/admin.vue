@@ -19,10 +19,6 @@
                 <span>Articles</span>
               </nuxt-link>
             </a-menu-item>
-            <a-menu-item key="tours">
-              <a-icon type="upload" />
-              <span>Tours</span>
-            </a-menu-item>
           </a-menu>
         </a-layout-sider>
         <a-layout>
@@ -33,8 +29,21 @@
               @click="() => (collapsed = !collapsed)"
             />
             <div class="float-right mr-2">
-              <a-avatar size="large" v-if="!$store.state.user.authUser.Avatar">U</a-avatar>
-              <a-avatar :src="$store.state.user.authUser.Avatar" v-else></a-avatar>
+              <a-menu mode="horizontal">
+                <a-sub-menu key="sub2" class="float-right mr-2 mt-2">
+                  <span slot="title">
+                    <a-avatar
+                      size="large"
+                      :src="$store.state.user.authUser.Avatar"
+                      :icon="$store.state.user.authUser.Avatar ? '' : 'user'"
+                    ></a-avatar>
+                  </span>
+                  <a-menu-item key="account">
+                    <nuxt-link to="/">Home</nuxt-link>
+                  </a-menu-item>
+                  <a-menu-item key="logout" @click="logout">Logout</a-menu-item>
+                </a-sub-menu>
+              </a-menu>
             </div>
           </a-layout-header>
           <a-layout-content
@@ -54,6 +63,13 @@ export default {
     return {
       collapsed: false
     };
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("logout");
+      this.$cookies.remove("token");
+      this.$router.push("/auth/login")
+    }
   }
 };
 </script>
@@ -77,4 +93,15 @@ export default {
 .logo {
   height: 35px;
 }
+
+.ant-menu-horizontal > .ant-menu-submenu {
+  border: none;
+}
+
+.ant-menu {
+  background: transparent;
+  border: none;
+}
+
+
 </style>
