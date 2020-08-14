@@ -13,13 +13,10 @@
       >
         <slot name="aboveSearchBar"></slot>
         <a-input-group compact v-if="searchBar" class="mt-5">
-          <a-select default-value="All" :style="{width: '17%'}">
-            <a-select-option value="All">All resources</a-select-option>
-            <a-select-option value="Day">Most Day</a-select-option>
-            <a-select-option value="Fee">Most Fee</a-select-option>
-            <a-select-option value="People">Most People</a-select-option>
+          <a-select default-value="article" :style="{width: '17%'}">
+            <a-select-option value="article">Articles</a-select-option>
           </a-select>
-          <a-input-search placeholder="input search text" :style="{width: '57%'}" />
+          <a-input-search placeholder="input search text" v-model="textSearch" :style="{width: '57%'}" @search="onSearch" />
         </a-input-group>
         <slot name="belowSearchBar"></slot>
       </div>
@@ -59,5 +56,15 @@
 <script>
 export default {
   props: ["textHeaderPage", "searchBar", "bgImgHeader"],
+  data() {
+    return {
+      textSearch: this.$route.query.data
+    }
+  },
+  methods: {
+    onSearch() {
+      this.$router.push({ name: 'search', query: {data: this.textSearch}})
+    }
+  }
 };
 </script>

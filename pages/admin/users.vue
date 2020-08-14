@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="mb-3">
+      <a-input-search
+        placeholder="input username"
+        style="width: 200px"
+        @search="searchData"
+        v-model="query"
+      />
+    </div>
     <a-table :columns="columns" :data-source="data" :pagination="false">
       <span slot="action" slot-scope="text, record">
         <a-button type="primary" ghost @click="() => showFormEdit(record.key)">Edit</a-button>
@@ -12,7 +20,12 @@
       <a-input v-model="Page" style="width: 40px" />
       <a-button v-if="Page > 1" @click="prev">Previous</a-button>
     </div>
-    <a-modal v-model="modalFormEdit" :title="`Edit user ${IdUserIsPicked}`" :footer="null" :destroyOnClose="true">
+    <a-modal
+      v-model="modalFormEdit"
+      :title="`Edit user ${IdUserIsPicked}`"
+      :footer="null"
+      :destroyOnClose="true"
+    >
       <FormEditUser :infoUser="infoUser" :handleSubmit="editByAdmin"></FormEditUser>
     </a-modal>
   </div>
@@ -38,7 +51,7 @@ const columns = [
 
 export default {
   layout: "admin",
-  middleware: "authenticated",
+  middleware: "isAdmin",
   components: {
     FormEditUser
   },
@@ -48,6 +61,7 @@ export default {
       columns,
       modalFormEdit: false,
       Page: 1,
+      query: "",
       infoUser: Object,
       IdUserIsPicked: null
     };
@@ -55,21 +69,43 @@ export default {
   methods: {
     next() {
       this.Page++;
+      if(this.query) {
+      this.$router.push({ query: { Page: this.Page, data: this.query } });
+      }
+      else {
       this.$router.push({ query: { Page: this.Page } });
+      }
     },
     prev() {
       this.Page--;
+      if(this.query) {
+      this.$router.push({ query: { Page: this.Page, data: this.query } });
+      }
+      else {
       this.$router.push({ query: { Page: this.Page } });
+      }
     },
 
     async uploadDataTable() {
       try {
-        const { data } = await this.$axios.get(`/user/${this.Page}&10`, {
-          headers: {
-            authorization: "Bearer " + this.$cookies.get("token")
-          }
-        });
-        const listUser = data.data.map(item => ({
+        let response = "";
+        if (this.query == "") {
+          response = await this.$axios.get(`/user/${this.Page}&10`, {
+            headers: {
+              authorization: "Bearer " + this.$cookies.get("token")
+            }
+          });
+        } else {
+          response = await this.$axios.get(
+            `/user/search/${this.Page}&10?data=${this.query}`,
+            {
+              headers: {
+                authorization: "Bearer " + this.$cookies.get("token")
+              }
+            }
+          );
+        }
+        const listUser = response.data.data.map(item => ({
           key: item.ID,
           ID: item.ID,
           FullName: item.FullName,
@@ -83,6 +119,12 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+
+    async searchData() {
+      this.Page = 1;
+      this.$router.push({ query: { Page: this.Page, data: this.query } });
+      this.uploadDataTable();
     },
 
     showFormEdit(key) {
@@ -158,17 +200,21 @@ export default {
   },
 
   created() {
-    if(this.$route.query.Page != null) {
-      this.Page = this.$route.query.Page
+    if (this.$route.query.Page != null) {
+      this.Page = this.$route.query.Page;
     }
 
-    this.uploadDataTable()
+    if (this.$route.query.data != null) {
+      this.query = this.$route.query.data;
+    }
+
+    this.uploadDataTable();
   },
 
   watch: {
     Page() {
-      this.uploadDataTable()
-    },
+      this.uploadDataTable();
+    }
   }
 };
 </script>

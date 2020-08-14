@@ -21,8 +21,9 @@
     <a-list v-if="comments.length" :data-source="comments" item-layout="horizontal">
       <a-list-item slot="renderItem" slot-scope="item, indexComment" class="text-left">
         <a-comment
-          class="text-white py-0"
+          class="py-0"
           style="width: calc(100% - 64px);"
+          :style="{color: colorText}"
           :author="item.author"
           :content="item.content"
           :datetime="moment(item.datetime).fromNow()"
@@ -33,11 +34,11 @@
             :icon="`${item.avatar ? '' : 'user'}`"
           />
           <div
-            class="text-white mb-2 mt-0"
+            class="mb-2 mt-0"
+            :style="{color: colorText}"
             @click="showReply(item.idComment, indexComment)"
             style="cursor: pointer; font-size: 14px;"
           >Reply</div>
-
 
           <a-list
             v-if="item.replies && item.replies.length && visibleInputReply.includes(item.idComment)"
@@ -47,12 +48,17 @@
           >
             <a-list-item slot="renderItem" slot-scope="item" class="text-left py-0 border-0 mt-3">
               <a-comment
-                class="text-white"
+                :style="{color: colorText}"
                 :author="item.author"
-                :avatar="item.avatar"
                 :content="item.content"
                 :datetime="moment(item.datetime).fromNow()"
-              />
+              >
+                <a-avatar
+                  slot="avatar"
+                  :src="`${item.avatar ? item.avatar : ''}`"
+                  :icon="`${item.avatar ? '' : 'user'}`"
+                />
+              </a-comment>
             </a-list-item>
 
             <!-- <div
@@ -69,9 +75,8 @@
               type="link"
               class="text-white text-left"
             >loading more replies</a-button>
-          </div> -->
+            </div>-->
           </a-list>
-
 
           <a-comment v-if="visibleInputReply.includes(item.idComment)" class="mt-3">
             <a-avatar
@@ -106,7 +111,7 @@
             class="float-right"
             v-if="$store.state.user.authUser && item.idAuthor == $store.state.user.authUser.ID"
           >
-            <a-icon type="ellipsis" style="font-size: 25px;" />
+            <a-icon type="ellipsis" style="font-size: 25px;" :style="{color: colorText}" />
           </a-button>
         </a-popover>
       </a-list-item>
@@ -115,10 +120,15 @@
         slot="loadMore"
         :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
       >
-        <a-spin v-if="loadingMoreComments" class="text-white">
+        <a-spin v-if="loadingMoreComments" :style="{color: colorText}">
           <a-icon slot="indicator" type="loading" style="font-size: 24px" spin />
         </a-spin>
-        <a-button v-else @click="onLoadMoreComments" type="link" class="text-white">loading more</a-button>
+        <a-button
+          v-else
+          @click="onLoadMoreComments"
+          type="link"
+          :style="{color: colorText}"
+        >loading more</a-button>
       </div>
     </a-list>
   </div>
@@ -126,7 +136,7 @@
 <script>
 import moment from "moment";
 export default {
-  props: ["IdArticle"],
+  props: ["IdArticle", "colorText"],
   data() {
     return {
       comments: [],
@@ -141,9 +151,29 @@ export default {
     };
   },
   methods: {
+    checkLogged() {
+      if (!this.$store.state.user.authUser) {
+        this.$confirm({
+          title: "Login to review the article",
+          onOk: () => {
+            this.$router.push("/auth/login");
+          },
+          onCancel: () => {
+
+          }
+        });
+        return false
+      }
+      return true
+    },
+
     async submitComment() {
       if (!this.value) {
         return;
+      }
+      if(!this.checkLogged()) {
+        this.value = "";
+        return
       }
       const values = {
         Article_Id: this.IdArticle,
@@ -170,22 +200,22 @@ export default {
 
     async showReply(idComment, indexComment) {
       if (!this.comments[indexComment].replies) {
-        this.comments[indexComment].replies = []
+        this.comments[indexComment].replies = [];
         try {
           const { data } = await this.$axios.get(
             `/comment/reply/${idComment}&0`
           );
           if (data.status == 200) {
-              data.data.forEach(item => {
-                this.comments[indexComment].replies.push({
-                  author: item.users.FullName,
-                  avatar: item.users.Avatar,
-                  content: item.Content,
-                  datetime: item.created_at,
-                  idAuthor: item.User_Id
-                });
+            data.data.forEach(item => {
+              this.comments[indexComment].replies.push({
+                author: item.users.FullName,
+                avatar: item.users.Avatar,
+                content: item.Content,
+                datetime: item.created_at,
+                idAuthor: item.User_Id
               });
-              this.$forceUpdate()
+            });
+            this.$forceUpdate();
           }
         } catch (e) {
           console.log(e);
@@ -203,6 +233,14 @@ export default {
     },
 
     async submitReply(content, indexComment, idComment) {
+      if (!content) {
+        return;
+      }
+      if(!this.checkLogged()) {
+        this.comments[indexComment].reply = "";
+        return
+      }
+
       const values = {
         Content: content,
         Article_Id: this.IdArticle,
@@ -225,7 +263,7 @@ export default {
             content: content,
             datetime: moment().format()
           });
-          this.$forceUpdate()
+          this.$forceUpdate();
         }
       } catch (e) {
         console.log(e);
@@ -318,7 +356,7 @@ export default {
 .container-comment >>> .ant-comment-content-author-name,
 .container-comment >>> .ant-comment-content-author-time,
 .container-comment >>> .ant-comment-content-detail {
-  color: white;
+  color: currentColor;
   font-size: 15px;
 }
 

@@ -66,7 +66,7 @@ const columns = [
 
 export default {
   layout: "admin",
-  middleware: "authenticated",
+  middleware: "isAdmin",
   data() {
     return {
       columns,

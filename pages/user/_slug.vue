@@ -19,7 +19,7 @@
     <div class="container mb-5">
       <div class="row">
         <div class="col-5">
-          <div class="sticky-top">
+          <div class="position-sticky" style="top: 20px;">
             <a-card
               title="Activity"
               class="w-100 border-radius--10 bg-main-color"
@@ -63,7 +63,7 @@
                 <a-icon type="phone" />
                 {{ profile.PhoneNumber }}
               </p>
-               <p  v-if="profile.linkFacebook">
+              <p  v-if="profile.linkFacebook">
                 <a-icon type="facebook" />
                 <a style="color:white" :href="profile.linkFacebook" target="_blank">Visit profile of you on facebook</a>
               </p>
@@ -129,10 +129,6 @@
                 <p class="font--18 mb-0">{{ item.Introduce }}</p>
               </div>
               <div>
-                <span class="mr-1 font--18">
-                  1200
-                  <a-icon type="heart"></a-icon>
-                </span>
                 <span class="font--18">
                   {{ item.AvgRate }}/5
                   <a-icon type="star"></a-icon>
@@ -171,16 +167,17 @@
                 style="min-height: 30px;"
               >
                 <div class="text-center">
-                  <comment :IdArticle="item.ID"></comment>
+                  <comment :IdArticle="item.ID" colorText="white"></comment>
                 </div>
               </a-card>
             </div>
             <br />
           </div>
-
-          <infinite-loading spinner="spiral" @infinite="infiniteScroll">
-            <span slot="no-more">No more data</span>
-          </infinite-loading>
+          <client-only>
+            <infinite-loading spinner="spiral" @infinite="infiniteScroll">
+              <span slot="no-more">No more data</span>
+            </infinite-loading>
+          </client-only>
         </div>
       </div>
     </div>
@@ -271,7 +268,29 @@ export default {
       }
     },
 
+    checkLogged() {
+      if (!this.$store.state.user.authUser) {
+        this.$confirm({
+          title: "Login to review the article",
+          onOk: () => {
+            this.$router.push("/auth/login");
+          },
+          onCancel: () => {
+
+          }
+        });
+        return false
+      }
+      return true
+    },
+
     async rateArticle(Rate, Article_Id) {
+
+      if(!this.checkLogged()) {
+        this.value = "";
+        return
+      }
+
       let value = {
         Rate,
         Article_Id

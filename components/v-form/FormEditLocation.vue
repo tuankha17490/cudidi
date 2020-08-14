@@ -57,7 +57,6 @@ export default {
           this.listLocations.splice(index, 1);
         },
         onCancel() {
-          console.log('Cancel');
         },
       });
     },
