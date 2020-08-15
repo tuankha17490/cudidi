@@ -34,7 +34,7 @@
               />
             </div>
             <div class="mb-3">
-              <h6 class="d-inline">Peoples:</h6>
+              <h6 class="d-inline">Number of people:</h6>
               <a-slider
                 :min="0"
                 :max="roundMaxValue(maximumValue.maxNumberOfPeople)"
@@ -80,7 +80,7 @@
                   </div>
                   <div>
                     <a-rate v-model="item.AvgRate" allow-half disabled />
-                    <span class="float-right mb-0">{{ item.RateAmount }} Ratings</span>
+                    <span class="float-right mb-0">{{ item.RateAmount }} Rating</span>
                   </div>
                 </div>
               </div>
