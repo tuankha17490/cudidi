@@ -37,7 +37,7 @@
                   <a-icon type="user" class="font--18" />
                 </span>
               </div>
-              <p class="mb-0">{{ item.Introduce }}</p>
+              <p class="mb-0 line-clamp">{{ item.Introduce }}</p>
               <div>
                 <a-rate v-model="item.AvgRate" allow-half disabled />
                 <span class="float-right mb-0">{{ item.RateAmount }} Ratings</span>
@@ -92,10 +92,10 @@
                           <a-icon type="user" class="font--18" />
                         </span>
                       </div>
-                      <p class="mb-0">{{ item.Introduce }}</p>
+                      <p class="mb-0 line-clamp">{{ item.Introduce }}</p>
                       <div>
                         <a-rate v-model="item.AvgRate" allow-half disabled />
-                        <span class="float-right mb-0">{{ item.RateAmount }} Ratings</span>
+                        <span class="float-right mb-0">{{ item.RateAmount }} Rating</span>
                       </div>
                     </div>
                   </div>
@@ -129,7 +129,7 @@
                     {{item.ArticleAmount}} Articles
                     <a-icon type="edit" />
                   </p>
-                  <p class="text-justify mx-5">{{item.Introduce}}</p>
+                  <p class="text-justify introduce mx-5">{{item.Introduce}}</p>
                 </div>
               </div>
             </div>
@@ -164,7 +164,7 @@ export default {
         `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&list=search&srsearch=${listFeaturedLocation[i].Location}`
       );
       let descriptionLocation = await axios.get(
-        `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&titles=${titleLocation.data.query.search[0].title}&formatversion=2&exsentences=5&exlimit=1&explaintext=1`
+        `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&titles=${titleLocation.data.query.search[0].title}&formatversion=2&exsentences=4&exlimit=1&explaintext=1`
       );
       listFeaturedLocation[i].Introduce = descriptionLocation.data.query.pages[0].extract
     }
@@ -211,4 +211,12 @@ export default {
   background-size: cover;
   background-position: center;
 }
+
+.introduce {
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 </style>
