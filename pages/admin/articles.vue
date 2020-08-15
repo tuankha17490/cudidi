@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="mb-3">
+      <a-input-search
+        placeholder="input username"
+        style="width: 200px"
+        @search="searchData"
+        v-model="query"
+      />
+    </div>
     <a-table
       :columns="columns"
       :data-source="dataIntroArticle"
@@ -66,46 +74,75 @@ const columns = [
 
 export default {
   layout: "admin",
-  middleware: "authenticated",
+  middleware: "isAdmin",
   data() {
     return {
       columns,
       loading: false,
       page: 1,
-      dataIntroArticle: []
+      dataIntroArticle: [],
+      query: ""
     };
   },
 
   methods: {
     next() {
       this.page++;
+      if (this.query) {
+        this.$router.push({ query: { page: this.page, data: this.query } });
+      } else {
+        this.$router.push({ query: { page: this.page } });
+      }
     },
     prev() {
       this.page--;
+      if (this.query) {
+        this.$router.push({ query: { page: this.page, data: this.query } });
+      } else {
+        this.$router.push({ query: { page: this.page } });
+      }
     },
 
     async uploadData() {
       try {
-        const { data } = await axios.get(
-          `https://cudidi-web.herokuapp.com/article/${this.page}&6`,
-          {
-            headers: {
-              authorization: "Bearer " + this.$cookies.get("token")
+        let response = "";
+        if (this.query == "") {
+          response = await axios.get(
+            `https://cudidi-web.herokuapp.com/article/${this.page}&6`,
+            {
+              headers: {
+                authorization: "Bearer " + this.$cookies.get("token")
+              }
             }
-          }
-        );
-        if (data.status == 200 && data.data.length <= 0) {
-          this.dataIntroArticle = data.data;
+          );
+        } else {
+          response = await this.$axios.get(
+            `/article/search/${this.page}&6?data=${this.query}`,
+            {
+              headers: {
+                authorization: "Bearer " + this.$cookies.get("token")
+              }
+            }
+          );
+        }
+        if (response.data.status == 200 && response.data.data.length <= 0) {
+          this.dataIntroArticle = response.data.data;
           return false;
-        } else if (data.status == 200) {
-          this.dataIntroArticle = data.data;
+        } else if (response.data.status == 200) {
+          this.dataIntroArticle = response.data.data;
           return true;
         } else {
-          this.$message.error(data.message, 8);
+          this.$message.error(response.data.message, 8);
         }
       } catch (e) {
         console.log(e);
       }
+    },
+
+    searchData() {
+      this.page = 1;
+      this.$router.push({ query: { page: this.page, data: this.query } });
+      this.uploadData();
     },
 
     async deleteArticle(IdArticle) {
@@ -147,7 +184,11 @@ export default {
           }
         });
       }
-      this.$router.push({ query: { page: this.page } });
+      if (this.query) {
+        this.$router.push({ query: { page: this.page, data: this.query } });
+      } else {
+        this.$router.push({ query: { page: this.page } });
+      }
       this.loading = false;
     }
   },
@@ -156,6 +197,9 @@ export default {
     this.loading = true;
     if (this.$route.query.page != null) {
       this.page = this.$route.query.page;
+    }
+    if (this.$route.query.data != null) {
+      this.query = this.$route.query.data;
     }
     const status = await this.uploadData();
     if (!status) {
