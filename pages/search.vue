@@ -80,7 +80,7 @@
                   </div>
                   <div>
                     <a-rate v-model="item.AvgRate" allow-half disabled />
-                    <span class="float-right mb-0">{{ item.RateAmount }} Ratings</span>
+                    <span class="float-right mb-0">{{ item.RateAmount }} Rating</span>
                   </div>
                 </div>
               </div>

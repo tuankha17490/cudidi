@@ -6,7 +6,7 @@
           <h2 class="my-4 text-center">Edit profile</h2>
           <FormEditUser :infoUser.sync="infoUser" :handleSubmit="editByUser" />
         </a-tab-pane>
-        <a-tab-pane v-if="infoUser.Username" key="2" tab="Password" force-render>
+        <a-tab-pane v-if="infoUser.isSocial == 0" key="2" tab="Password" force-render>
           <h2 class="my-4 text-center">Change Password</h2>
           <FormChangePassword />
         </a-tab-pane>

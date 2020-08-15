@@ -7,7 +7,7 @@
           <p
             class="text"
           >Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in odio</p>
-          <nuxt-link to="/"><button>READ MORE</button></nuxt-link>
+          <a><nuxt-link to="/">READ MORE</nuxt-link></a>
         </div>
       </div>
       <div class="col-7 col-md-7">
@@ -147,7 +147,7 @@ div img {
   padding-top: 5%;
   padding-right: 25%;
 }
-.header button {
+.header a {
   width: 217.5px;
   height: 59.2px;
   background-color: #7bc1ba;
@@ -162,5 +162,6 @@ div img {
   color: #ffffff;
   border: none;
   border-radius: 50px;
+  padding: 15px;
 }
 </style>
