@@ -2,9 +2,8 @@
   <div class="d-flex align-items-center border-bottom container-header" style="height: 60px">
     <img src="@/static/icons/Black-logo.svg" class="mx-2" />
     <a-menu v-model="current" mode="horizontal" :style="{ width: 'calc(100% - 12px)' }">
-      <a-menu-item key="home"><nuxt-link to="/">Home</nuxt-link></a-menu-item>
-      <a-menu-item key="review"><nuxt-link to="/about">About us</nuxt-link></a-menu-item>
-      <a-menu-item key="tour">Tour</a-menu-item>
+      <a-menu-item key="home"><nuxt-link to="/home">Home</nuxt-link></a-menu-item>
+      <a-menu-item key="review"><nuxt-link to="/">About us</nuxt-link></a-menu-item>
       <a-menu-item class="float-right mr-2" v-if="!$store.state.user.isLoggedIn">
         <nuxt-link to="/auth/login">Login</nuxt-link>
       </a-menu-item>

@@ -174,7 +174,7 @@ export default {
       this.$success({
         title: "Your article has been uploaded",
         onOk: () => {
-          this.$router.push("/");
+          this.$router.push("/home");
         },
         okText: "Go to Homepage"
       });

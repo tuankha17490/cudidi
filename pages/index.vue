@@ -1,214 +1,167 @@
 <template>
-  <div>
-    <HeaderPage :searchBar="true">
-      <template slot="aboveSearchBar">
-        <h1 class="text-white">
-          Explore everywhere
-          <br />you want
-        </h1>
-      </template>
-    </HeaderPage>
-    <div class="container-fuild m-5">
-      <div class="row justify-content-around mx-5 py-5">
-        <div class="col-11">
-          <a-divider class="mb-5">
-            <h2>Featured articles</h2>
-          </a-divider>
+  <div class="wrap container-fluid">
+    <div class="component row">
+      <div class="col-5 col-md-5">
+        <div class="header">
+          <h1 class="title">Let's Start Your Travel</h1>
+          <p
+            class="text"
+          >Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in odio</p>
+          <a href="./home">READ MORE</a>
         </div>
-        <template v-for="(item, index) in listFeaturedArticles">
-          <div :class="`${index == 0 ? 'col-7 mb-5' : 'col-3 mb-5'}`" :key="index">
-            <nuxt-link :to="`/article/${item.Slug}`">
-              <img :src="item.Image" alt style="height: 400px;" class="w-100 border-radius--15" />
-              <h4 class="mt-3">{{ item.Title }}</h4>
-            </nuxt-link>
-            <div class="mt-1">
-              <h5 class="d-inline">{{item.Location}}</h5>
-              <div class="float-right text-danger">
-                <span>
-                  {{ item.Price }}
-                  <a-icon type="dollar" class="font--18" />
-                </span>
-                <span>
-                  {{ item.Duration }}
-                  <a-icon type="calendar" class="font--18" />
-                </span>
-                <span>
-                  {{ item.NumberOfPeople }}
-                  <a-icon type="user" class="font--18" />
-                </span>
-              </div>
-              <p class="mb-0">{{ item.Introduce }}</p>
-              <div>
-                <a-rate v-model="item.AvgRate" allow-half disabled />
-                <span class="float-right mb-0">{{ item.RateAmount }} Ratings</span>
-              </div>
-            </div>
-          </div>
-        </template>
-
-        <div class="col-11">
-          <a-divider class="my-5">
-            <h2>Latest articles</h2>
-          </a-divider>
+      </div>
+      <div class="col-7 col-md-7">
+        <img src="@/static/images/AboutUs1.svg" alt="About Us" />
+      </div>
+    </div>
+    <div class="component about_us_2 row">
+      <div class="col">
+        <img src="@/static/images/AboutUs2.svg" alt="About Us" />
+      </div>
+      <div class="col">
+        <div class="description">
+          <h1 class="subtitle">WE HELP EVERYONE MAKE THEIR OWN TRIPS</h1>
+          <p
+            class="text"
+          >Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in odio.Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in</p>
         </div>
-        <div class="col-11 container-slide-latest-articles">
-          <a-carousel :dots="false" autoplay arrows>
-            <div slot="prevArrow" class="custom-slick-arrow" style="left: 20px;zIndex: 1">
-              <a-icon type="left-circle" />
-            </div>
-            <div slot="nextArrow" class="custom-slick-arrow" style="right: 20px">
-              <a-icon type="right-circle" />
-            </div>
-            <div v-for="(slide, indexSlide) in (listLatestArticles.length / 3)" :key="slide.ID">
-              <div class="row m-0">
-                <template v-for="(item, indexItem) in listLatestArticles">
-                  <div
-                    class="col-4 mb-5"
-                    :key="indexItem"
-                    v-show="(indexItem < indexSlide * 3 + 3) && (indexItem >= indexSlide * 3)"
-                  >
-                    <nuxt-link :to="`/article/${item.Slug}`">
-                      <img
-                        :src="item.Image"
-                        alt
-                        style="height: 400px;"
-                        class="w-100 border-radius--15"
-                      />
-                      <h5 class="mt-3">{{ item.Title }}</h5>
-                    </nuxt-link>
-                    <div class="mt-1">
-                      <h6 class="d-inline">{{item.Location}}</h6>
-                      <div class="float-right text-danger">
-                        <span>
-                          {{ item.Price }}
-                          <a-icon type="dollar" class="font--18" />
-                        </span>
-                        <span>
-                          {{ item.Duration }}
-                          <a-icon type="calendar" class="font--18" />
-                        </span>
-                        <span>
-                          {{ item.NumberOfPeople }}
-                          <a-icon type="user" class="font--18" />
-                        </span>
-                      </div>
-                      <p class="mb-0">{{ item.Introduce }}</p>
-                      <div>
-                        <a-rate v-model="item.AvgRate" allow-half disabled />
-                        <span class="float-right mb-0">{{ item.RateAmount }} Ratings</span>
-                      </div>
-                    </div>
-                  </div>
-                </template>
-              </div>
-            </div>
-          </a-carousel>
+      </div>
+    </div>
+    <div class="component about_us_3 row">
+      <div class="col">
+        <div class="description">
+          <h1 class="subtitle">WE HELP EVERYONE MAKE THEIR OWN TRIPS</h1>
+          <p
+            class="text"
+          >Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in odio.Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in</p>
         </div>
-
-        <div class="col-11">
-          <a-divider class="my-5">
-            <h2>Featured locations</h2>
-          </a-divider>
-        </div>
-        <div class="col-11 container-slide-location">
-          <a-carousel autoplay :dots="false" arrows>
-            <div slot="prevArrow" class="custom-slick-arrow" style="left: 20px;zIndex: 1">
-              <a-icon type="left-circle" />
-            </div>
-            <div slot="nextArrow" class="custom-slick-arrow" style="right: 20px">
-              <a-icon type="right-circle" />
-            </div>
-            <div v-for="item in listFeaturedLocation" :key="item.Location">
-              <div class="row m-0 align-items-center">
-                <div class="img-location col-6" style="height: 400px;">
-                  <nuxt-link :to="`/search/?data=${item.Location}`"><img :src="item.Image" class="w-100 h-100 border-radius--15 p-0" alt /></nuxt-link>
-                </div>
-                <div class="col-6">
-                  <nuxt-link :to="`/search/?data=${item.Location}`"><h2 class="mb-2">{{item.Location}}</h2></nuxt-link>
-                  <p>
-                    {{item.ArticleAmount}} Articles
-                    <a-icon type="edit" />
-                  </p>
-                  <p class="text-justify mx-5">{{item.Introduce}}</p>
-                </div>
-              </div>
-            </div>
-          </a-carousel>
+      </div>
+      <div class="col">
+        <img src="@/static/images/AboutUs3.svg" alt="About Us" />
+      </div>
+    </div>
+    <div class="component about_us_4 row">
+      <div class="col">
+        <img src="@/static/images/AboutUs4.svg" alt="About Us" />
+      </div>
+      <div class="col">
+        <div class="description">
+          <h1 class="subtitle">ALREADY HAVE A GUIDE FROM SCRATCH</h1>
+          <p
+            class="text"
+          >Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in odio.Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import HeaderPage from "@/components/common/HeaderPage";
-import axios from "axios";
-
-export default {
-  components: {
-    HeaderPage
-  },
-  data() {
-    return {
-      listFeaturedLocation: {}
-    };
-  },
-
-  async asyncData({ $axios }) {
-    let listFeaturedLocation = {}
-    const { data } = await $axios.get("/article/home");
-    if (data.status == 200) {
-      listFeaturedLocation = data.data.popularLocation
-      for(let i = 0; i < listFeaturedLocation.length; i++) {
-      let titleLocation = await axios.get(
-        `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&list=search&srsearch=${listFeaturedLocation[i].Location}`
-      );
-      let descriptionLocation = await axios.get(
-        `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&titles=${titleLocation.data.query.search[0].title}&formatversion=2&exsentences=5&exlimit=1&explaintext=1`
-      );
-      listFeaturedLocation[i].Introduce = descriptionLocation.data.query.pages[0].extract
-    }
-      return {
-        listFeaturedArticles: data.data.popularArticles,
-        listLatestArticles: data.data.latestArticles,
-        listFeaturedLocation
-      };
-    }
-  }
-};
-</script>
-
 <style scoped>
-.anticon {
-  vertical-align: 0.125em;
+div img {
+  width: inherit;
+}
+.about_us_2 img {
+  width: 1225px;
+  position: relative;
+  right: 30%;
+}
+.about_us_3 {
+  margin-bottom: 0;
+}
+.about_us_3 img {
+  height: 890px;
+  position: relative;
+  bottom: 280px;
+}
+.about_us_3 .description {
+  margin-left: 15%;
+  margin-top: 200px;
+}
+.about_us_4 img {
+  width: 1225px;
+  position: relative;
+  right: 30%;
+}
+.about_us_4 .subtitle {
+  text-align: right;
+}
+.about_us_2 .description {
+  padding-top: 400px;
+}
+.about_us_4 .description {
+  padding-top: 300px;
+}
+.about_us_4 .text {
+  margin-left: 15%;
+  margin-top: 100px;
+}
+.component {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+.subtitle {
+  width: 750px;
+  height: 121px;
+  font-size: 58px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-align: left;
+  color: #454f6b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.ant-divider-horizontal.ant-divider-with-text-center::before,
-.ant-divider-horizontal.ant-divider-with-text-center::after {
-  border-top: solid 2px black;
+.title {
+  width: 560px;
+  height: fit-content;
+  font-family: HelveticaNeue;
+  font-size: 110px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #454f6b;
 }
-
-.container-slide-location >>> .ant-carousel .slick-slider {
+.text {
+  width: 549.1px;
+  height: 120.7px;
+  font-family: Asap;
+  font-size: 22px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.42;
+  letter-spacing: normal;
+  text-align: left;
+  color: #6d6e71;
+  margin-top: 50px;
+  margin-bottom: 130px;
+}
+.header {
+  padding-left: 15%;
+  padding-top: 5%;
+  padding-right: 25%;
+}
+.header a {
+  width: 217.5px;
+  height: 59.2px;
+  background-color: #7bc1ba;
+  font-family: Asap;
+  font-size: 22px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.18;
+  letter-spacing: normal;
   text-align: center;
-  background: #fff;
-}
-
-.ant-carousel >>> .custom-slick-arrow {
-  width: 25px;
-  height: 25px;
-  font-size: 25px;
-  color: black;
-  opacity: 0.4;
-}
-.ant-carousel >>> .custom-slick-arrow:before {
-  display: none;
-}
-.ant-carousel >>> .custom-slick-arrow:hover {
-  opacity: 0.5;
-}
-
-.img-location {
-  background-size: cover;
-  background-position: center;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  padding: 15px;
 }
 </style>

@@ -8,7 +8,7 @@
     >
       <template #extra>
         <a-button type="primary">
-          <nuxt-link to="/">Back Home</nuxt-link>
+          <nuxt-link to="/home">Back Home</nuxt-link>
         </a-button>
       </template>
     </a-result>
@@ -20,7 +20,7 @@
     >
       <template #extra>
         <a-button type="primary">
-          <nuxt-link to="/">Back Home</nuxt-link>
+          <nuxt-link to="/home">Back Home</nuxt-link>
         </a-button>
       </template>
     </a-result>

@@ -39,7 +39,7 @@
                     ></a-avatar>
                   </span>
                   <a-menu-item key="account">
-                    <nuxt-link to="/">Home</nuxt-link>
+                    <nuxt-link to="/home">Home</nuxt-link>
                   </a-menu-item>
                   <a-menu-item key="logout" @click="logout">Logout</a-menu-item>
                 </a-sub-menu>
