@@ -18,7 +18,7 @@
         <a-menu-item key="account">
           <nuxt-link to="/user/editprofile">Account</nuxt-link>
         </a-menu-item>
-        <a-menu-item key="admin" v-if="$store.state.user.authUser.roles.ID == 1">
+        <a-menu-item key="admin" v-if="$store.state.user.authUser.roles.ID == 1 || $store.state.user.authUser.roles.ID == 2">
           <nuxt-link to="/admin/users">Admin</nuxt-link>
         </a-menu-item>
         <a-menu-item key="logout" @click="logout">Logout</a-menu-item>

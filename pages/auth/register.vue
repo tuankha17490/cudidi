@@ -56,7 +56,7 @@
       </a-form-item>
 
       <a-form-item>
-        <a-input size="large" v-decorator="['PhoneNumber']" placeholder="PhoneNumber">
+        <a-input size="large" v-decorator="['PhoneNumber',{ required: true, whitespace: true, message: 'Please input your phone number!' }]" placeholder="PhoneNumber">
           <a-icon slot="suffix" type="home" />
         </a-input>
       </a-form-item>

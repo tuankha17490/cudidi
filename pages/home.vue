@@ -159,16 +159,9 @@ export default {
     const { data } = await $axios.get("/article/home");
     if (data.status == 200) {
       listFeaturedLocation = data.data.popularLocation
-      let temp = 0
       for(let i = 0; i < listFeaturedLocation.length; i++) {
-        temp = encodeURI('https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&list=search&srsearch=${listFeaturedLocation[i].Location}')
-      let titleLocation = await axios.get(
-        `${temp}`
-      );
-      temp = encodeURI('https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&titles='+titleLocation.data.query.search[0].title+'&formatversion=2&exsentences=4&exlimit=1&explaintext=1')
-      let descriptionLocation = await axios.get(
-        `${temp}`
-      );
+      let titleLocation = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&list=search&srsearch=${listFeaturedLocation[i].Location}`);
+      let descriptionLocation = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&titles=${titleLocation.data.query.search[0].title}&formatversion=2&exsentences=4&exlimit=1&explaintext=1`);
       listFeaturedLocation[i].Introduce = descriptionLocation.data.query.pages[0].extract
     }
       return {
