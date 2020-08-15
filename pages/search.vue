@@ -34,7 +34,7 @@
               />
             </div>
             <div class="mb-3">
-              <h6 class="d-inline">Peoples:</h6>
+              <h6 class="d-inline">Number of people:</h6>
               <a-slider
                 :min="0"
                 :max="roundMaxValue(maximumValue.maxNumberOfPeople)"

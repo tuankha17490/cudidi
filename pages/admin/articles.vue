@@ -44,7 +44,7 @@ const columns = [
   { title: "Price", dataIndex: "Price", width: 120 },
   { title: "Introduce", dataIndex: "Introduce", width: 250 },
   {
-    title: "Peoples",
+    title: "Number of people",
     dataIndex: "NumberOfPeople",
     width: 100
   },

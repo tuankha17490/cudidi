@@ -7,7 +7,7 @@
           <p
             class="text"
           >Lorem ipsum dolor sit amet, consectetur adipicing elit. Phasellus purus lectus, iaculis non facilicis bibendum, porta in odio</p>
-          <button>READ MORE</button>
+          <nuxt-link to="/"><button>READ MORE</button></nuxt-link>
         </div>
       </div>
       <div class="col-7 col-md-7">

@@ -396,3 +396,10 @@ label {
 .bg-main-color {
   background: #5bd0c3;
 }
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
