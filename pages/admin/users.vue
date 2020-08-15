@@ -16,7 +16,7 @@
       </span>
     </a-table>
     <div class="mt-3 float-right">
-      <a-button type="primary" ghost @click="next">Next</a-button>
+      <a-button v-if="isNext == true" type="primary" ghost @click="next">Next</a-button>
       <a-input v-model="Page" style="width: 40px" />
       <a-button v-if="Page > 1" @click="prev">Previous</a-button>
     </div>
@@ -63,7 +63,8 @@ export default {
       Page: 1,
       query: "",
       infoUser: Object,
-      IdUserIsPicked: null
+      IdUserIsPicked: null,
+      isNext: true
     };
   },
   methods: {
@@ -116,6 +117,8 @@ export default {
           Address: item.Address
         }));
         this.data = listUser;
+        console.log(response.data);
+        if(response.data.totalRow < 10 * this.Page) this.isNext = false
       } catch (e) {
         console.log(e);
       }

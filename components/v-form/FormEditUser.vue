@@ -73,7 +73,7 @@
         </a-input>
       </a-form-item>
 
-      <a-form-item v-if="(!infoUser.PageAdmin) && (infoUser.isSocial == 0)">
+      <a-form-item v-if="infoUser.isSocial == 0">
         <a-input
           size="large"
           v-decorator="['passwordConfirm', { rules: [{ required: true, message: 'Please input your Password!' }, { min: 6, max: 16, message: 'Password between 6 to 16 characters' }] }]"
@@ -84,7 +84,7 @@
         </a-input>
       </a-form-item>
 
-      <a-form-item v-if="infoUser.PageAdmin">
+      <!-- <a-form-item v-if="infoUser.PageAdmin">
         <a-form-item>
           <a-input
             size="large"
@@ -102,7 +102,7 @@
             v-decorator="['checkboxEditPassword', {valuePropName: 'checked'}]"
           >Edit Password</a-checkbox>
         </a-form-item>
-      </a-form-item>
+      </a-form-item> -->
 
       <a-form-item>
         <a-popconfirm

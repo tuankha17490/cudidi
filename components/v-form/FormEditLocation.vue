@@ -4,7 +4,6 @@
     <div class="d-flex-center flex-column">
       <div class="my-4">
         <a-button size="large" type="primary" @click="addLocation" class="mr-2">Add new location</a-button>
-        <a-button size="large" type="primary" @click="replaceListLocations">Replace</a-button>
       </div>
       <draggable v-model="listLocations" group="people" @start="drag=true" @end="drag=false">
         <div
