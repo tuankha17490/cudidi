@@ -34,7 +34,7 @@
         </template>
         <div v-if="current == 3" class="text-center">
           <h3 class="mb-4">Now! Share your trip to everyone</h3>
-          <a-button size="large" type="primary" @click="submitArticle">Share your trip</a-button>
+          <a-button :disabled="checkButton == true" size="large" type="primary" @click="submitArticle">Share your trip</a-button>
         </div>
       </div>
     </a-spin>
@@ -91,6 +91,7 @@ export default {
       current: 0,
       location: 1,
       spinning: false,
+      checkButton: false
     };
   },
 
@@ -109,6 +110,7 @@ export default {
       this.spinning = !this.spinning;
     },
     async submitArticle() {
+      this.checkButton = true
       let IntroArticle = this.$store.state.article.articleIntroduction;
       try {
         this.changeSpinning();
@@ -178,6 +180,7 @@ export default {
         },
         okText: "Go to Homepage"
       });
+
     }
   },
   watch: {

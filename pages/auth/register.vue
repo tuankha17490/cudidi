@@ -102,7 +102,6 @@ export default {
             if(values.Address) values.Address = values.Address.trim()
             if(values.PhoneNumber) values.PhoneNumber = values.PhoneNumber.trim()
             if(values.BirthDay) values.BirthDay = moment(values.BirthDay).format("YYYY-MM-DD")
-             console.log('hererer', values);
             const { data } = await this.$axios.post("/register", values);
             if (data.status != 201)
               this.form.setFields({
