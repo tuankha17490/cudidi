@@ -71,6 +71,10 @@ export default {
       this.listLocations = this.$store.state.article.articleDescription;
     },
     submitListLocations() {
+      if (this.listLocations.length <= 0) {
+        this.$message.error("location ​​cannot null", 5);
+        return;
+      }
       for (let i = 0; i < this.listLocations.length - 1; i++) {
         for (let j = i + 1; j < this.listLocations.length; j++) {
           if (!this.listLocations[j].Place.trim()) {
