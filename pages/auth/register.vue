@@ -96,14 +96,14 @@ export default {
             values = {
               FullName: values.FullName.trim(),
               Email: values.Email.trim(),
-              Address: values.Address.trim(),
               Username: values.Username.trim(),
-              PhoneNumber: values.PhoneNumber.trim(),
               Password: values.Password,
-              BirthDay: moment(values.BirthDay).format("YYYY-MM-DD")
             };
+            if(values.Address) values.Address = values.Address.trim()
+            if(values.PhoneNumber) values.PhoneNumber = values.PhoneNumber.trim()
+            if(values.BirthDay) values.BirthDay = moment(values.BirthDay).format("YYYY-MM-DD")
+             console.log('hererer', values);
             const { data } = await this.$axios.post("/register", values);
-            console.log(data)
             if (data.status != 201)
               this.form.setFields({
                 Username: {
@@ -118,7 +118,7 @@ export default {
               this.$router.push("/auth/login");
             }
           } catch (e) {
-            console.log('a',e.Response);
+            console.log('a',e);
           }
         }
       });
