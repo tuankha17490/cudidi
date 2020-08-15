@@ -72,7 +72,7 @@ export default {
             if (data.status == 200) {
               this.$cookies.set("token", data.token);
               this.$store.dispatch("update");
-              this.$router.push("/");
+              this.$router.push("/about");
             } else {
               this.form.setFields({
                 Password: {
@@ -105,7 +105,7 @@ export default {
           if (data.status == 200) {
             this.$cookies.set("token", data.token);
             this.$store.dispatch("update");
-            this.$router.push("/");
+            this.$router.push("/about");
           } else {
             this.$message.error(data.message, 8);
           }
@@ -134,7 +134,7 @@ export default {
           if (data.status == 200) {
             this.$cookies.set("token", data.token);
             this.$store.dispatch("update");
-            this.$router.push("/");
+            this.$router.push("/about");
           } else {
             this.$message.error(data.message, 8);
           }

@@ -22,7 +22,11 @@
             class="border-radius--4 mr-3"
             placeholder="New location"
           />
-          <a-icon type="close" class="cursor-pointer font--20" @click="removeLocationAt(index, item.ID)"/>
+          <a-icon
+            type="close"
+            class="cursor-pointer font--20"
+            @click="removeLocationAt(index, item.ID)"
+          />
         </div>
       </draggable>
     </div>
@@ -47,17 +51,18 @@ export default {
   methods: {
     removeLocationAt(index, IdDescription) {
       this.$confirm({
-        title: 'Are you sure delete this item?',
-        content: 'If you continue the data will not be restored',
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
+        title: "Are you sure delete this item?",
+        content: "If you continue the data will not be restored",
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
         onOk: () => {
-          this.$store.dispatch('deleteContentArticle', IdDescription)
+          if (IdDescription) {
+            this.$store.dispatch("deleteContentArticle", IdDescription);
+          }
           this.listLocations.splice(index, 1);
         },
-        onCancel() {
-        },
+        onCancel() {}
       });
     },
     addLocation() {
