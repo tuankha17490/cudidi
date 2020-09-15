@@ -78,6 +78,7 @@ export default {
 
   created() {
     this.infoUser = this.$store.state.user.authUser,
+    console.log(this.infoUser);
     this.infoUser.PageAdmin = false
   }
 };

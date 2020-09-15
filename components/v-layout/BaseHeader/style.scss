@@ -2,23 +2,26 @@
   background: transparent;
   border: none;
 }
-.ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-item > a:hover {
+
+.ant-menu-horizontal>.ant-menu-item-selected,
+.ant-menu-horizontal>.ant-menu-item:hover,
+.ant-menu-horizontal>.ant-menu-item>a:hover {
   border: none;
   background-color: #bfffff;
   border-radius: 15px;
   color: black;
 }
 
-.container-header >>> .ant-menu-submenu-title .anticon {
+.container-header>>>.ant-menu-submenu-title .anticon {
   margin-right: 0;
   font-size: 20px;
 }
 
-.ant-menu-horizontal > .ant-menu-item-selected > a {
+.ant-menu-horizontal>.ant-menu-item-selected>a {
   color: black;
 }
 
-.ant-menu-horizontal > .ant-menu-submenu {
+.ant-menu-horizontal>.ant-menu-submenu {
   border: none;
 }
 
@@ -33,7 +36,5 @@
   width: 100px;
   text-align: center;
 }
-
-
 
 

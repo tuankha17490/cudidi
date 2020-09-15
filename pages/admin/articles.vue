@@ -25,7 +25,7 @@
       </span>
     </a-table>
     <div class="mt-3 float-right">
-      <a-button type="primary" ghost @click="next">Next</a-button>
+      <a-button v-if="isNext == true" type="primary" ghost @click="next">Next</a-button>
       <a-input v-model="page" style="width: 40px" />
       <a-button v-if="page > 1" @click="prev">Previous</a-button>
     </div>
@@ -81,7 +81,8 @@ export default {
       loading: false,
       page: 1,
       dataIntroArticle: [],
-      query: ""
+      query: "",
+       isNext: true
     };
   },
 
@@ -130,6 +131,8 @@ export default {
           return false;
         } else if (response.data.status == 200) {
           this.dataIntroArticle = response.data.data;
+          console.log(response.data);
+          if(response.data.totalRow < 10 * this.page) this.isNext = false
           return true;
         } else {
           this.$message.error(response.data.message, 8);

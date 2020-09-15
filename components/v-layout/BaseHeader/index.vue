@@ -9,7 +9,6 @@
       </a-menu-item>
       <a-sub-menu key="sub2" class="float-right mr-2" v-else>
         <span slot="title">
-
           <a-avatar size="large" :src="$store.state.user.authUser.Avatar" :icon="$store.state.user.authUser.Avatar ? '' : 'user'"></a-avatar>
         </span>
         <a-menu-item key="profile">

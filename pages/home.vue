@@ -74,7 +74,7 @@
                         style="height: 400px;"
                         class="w-100 border-radius--15"
                       />
-                      <h5 class="mt-3">{{ item.Title }}</h5>
+                      <h5 v-html="item.Title" class="mt-3">{{ item.Title }}</h5>
                     </nuxt-link>
                     <div class="mt-1">
                       <h6 class="d-inline">{{item.Location}}</h6>

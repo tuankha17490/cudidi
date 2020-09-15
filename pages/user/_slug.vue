@@ -47,7 +47,7 @@
               :headStyle="{color: 'white', fontSize: '21px'}"
               :bodyStyle="{color: 'white', fontSize: '18px'}"
             >
-              <p v-if="profile.Address">
+              <p v-html="profile.Address" v-if="profile.Address">
                 <a-icon type="home" />
                 {{ profile.Address }}
               </p>

@@ -52,6 +52,7 @@ const actions = {
           authorization: 'Bearer ' + token
         }
       })
+      console.log('Store ---->',data);
       if(data.status == 200) {
         commit('SET_USER', data.data)
       }

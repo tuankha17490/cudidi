@@ -46,7 +46,7 @@
       <div class="row pt-5 justify-content-between">
         <div class="col-8">
           <div class="mb-5 pb-3">
-            <h6 class="text-justify">{{ introductionArticle.Introduce }}</h6>
+            <h6 class="text-justify" v-html="'<span>'+introductionArticle.Introduce+ '</span>'">{{ introductionArticle.Introduce }}</h6>
           </div>
         </div>
         <div class="col-8" style="padding-top:17px;">
@@ -157,15 +157,11 @@ export default {
 
   async asyncData({ params, error }) {
     try {
-      const infoArticle = await axios.get(
-        `https://cudidi-web.herokuapp.com/article/description/${params.slug}`
-      );
+      const infoArticle = await axios.get(`https://cudidi-web.herokuapp.com/article/description/${params.slug}`);
       if (infoArticle.status == 404) {
         error({ statusCode: 404 });
       }
-      const infoArticlesRelation = await axios.get(
-        `https://cudidi-web.herokuapp.com/article/relation/${params.slug}`
-      );
+      const infoArticlesRelation = await axios.get(`https://cudidi-web.herokuapp.com/article/relation/${params.slug}`);
       return {
         author: infoArticle.data.data.users,
         introductionArticle: infoArticle.data.data.articles,
