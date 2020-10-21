@@ -136,16 +136,14 @@ export default {
         try {
           let response = "";
           if (!this.limitedSearch) {
-            response = await this.$axios.get(
-              `/article/home/search/${this.lastIdArticle}&6`,
+            response = await this.$axios.get(`/article/home/search/${this.lastIdArticle}&6`,
               {
                 params: this.$route.query
               }
             );
           } else {
             this.searchRange.data = this.$route.query.data;
-            response = await this.$axios.get(
-              `/article/sort/${this.lastIdArticle}&6`,
+            response = await this.$axios.get(`/article/sort/${this.lastIdArticle}&6`,
               {
                 params: {
                   data: this.searchRange.data,
