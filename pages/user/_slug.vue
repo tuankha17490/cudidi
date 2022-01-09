@@ -205,10 +205,10 @@ export default {
     };
   },
 
-  async asyncData({ params, error }) {
+  async asyncData({ params, error, $axios }) {
     try {
-      const { data } = await axios.get(
-        `https://cudidi-web.herokuapp.com/user/article/${params.slug}&0&2`
+      const { data } = await $axios.get(
+        `/user/article/${params.slug}&0&2`
       );
       if (data.status == 200) {
         const profile = data.data.user;

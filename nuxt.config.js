@@ -109,7 +109,7 @@ export default {
   auth: {
     strategies: {
         google: {
-          client_id: '759791052216-e9nmv3i871md2gfaf274bru9a97ut95t.apps.googleusercontent.com',
+          client_id: '212695609036-1csfl8vpft8a0ile03ri0ir3rbkcea5u.apps.googleusercontent.com',
           _scheme: 'oauth2',
           authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
           userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',

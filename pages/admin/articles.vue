@@ -108,8 +108,8 @@ export default {
       try {
         let response = "";
         if (this.query == "") {
-          response = await axios.get(
-            `https://cudidi-web.herokuapp.com/article/${this.page}&6`,
+          response = await this.$axios.get(
+            `/article/${this.page}&6`,
             {
               headers: {
                 authorization: "Bearer " + this.$cookies.get("token")

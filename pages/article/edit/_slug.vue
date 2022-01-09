@@ -82,8 +82,8 @@ export default {
 
   async asyncData({ params, store, error }) {
     try {
-      const { data } = await axios.get(
-        `https://cudidi-web.herokuapp.com/article/description/${params.slug}`
+      const { data } = await this.$axios.get(
+        `/article/description/${params.slug}`
       );
       if (data.status == 200) {
         if (

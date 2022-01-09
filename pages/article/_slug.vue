@@ -155,13 +155,13 @@ export default {
     }
   },
 
-  async asyncData({ params, error }) {
+  async asyncData({ params, error, $axios }) {
     try {
-      const infoArticle = await axios.get(`https://cudidi-web.herokuapp.com/article/description/${params.slug}`);
+      const infoArticle = await $axios.get(`/article/description/${params.slug}`);
       if (infoArticle.status == 404) {
         error({ statusCode: 404 });
       }
-      const infoArticlesRelation = await axios.get(`https://cudidi-web.herokuapp.com/article/relation/${params.slug}`);
+      const infoArticlesRelation = await $axios.get(`/article/relation/${params.slug}`);
       return {
         author: infoArticle.data.data.users,
         introductionArticle: infoArticle.data.data.articles,
