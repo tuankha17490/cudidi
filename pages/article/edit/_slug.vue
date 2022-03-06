@@ -80,9 +80,9 @@ export default {
     };
   },
 
-  async asyncData({ params, store, error }) {
+  async asyncData({ params, store, error, $axios }) {
     try {
-      const { data } = await this.$axios.get(
+      const { data } = await $axios.get(
         `/article/description/${params.slug}`
       );
       if (data.status == 200) {
