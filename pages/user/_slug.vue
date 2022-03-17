@@ -21,27 +21,6 @@
         <div class="col-5">
           <div class="position-sticky" style="top: 20px;">
             <a-card
-              title="Activity"
-              class="w-100 border-radius--10 bg-main-color"
-              :headStyle="{color: 'white', fontSize: '21px'}"
-              :bodyStyle="{color: 'white', fontSize: '18px'}"
-            >
-              <div style="margin-bottom: 1em;">
-                20 Articles
-                <a-divider type="vertical" />3222 Like
-                <a-divider type="vertical" />140 Ratings
-              </div>
-
-              <div style="margin-bottom: 0.75em;">
-                20 Locations
-                <a-divider type="vertical" />70 Days
-              </div>
-              <div style="margin-bottom: 1em;">
-                <a-rate :default-value="2.5" allow-half disabled />
-              </div>
-            </a-card>
-            <br />
-            <a-card
               title="Profile"
               class="w-100 border-radius--10 bg-main-color"
               :headStyle="{color: 'white', fontSize: '21px'}"
